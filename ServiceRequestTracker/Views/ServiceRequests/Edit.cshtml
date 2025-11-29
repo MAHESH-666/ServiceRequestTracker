@@ -1,0 +1,67 @@
+﻿@model ServiceRequestTracker.Models.ServiceRequest
+
+@{
+    ViewData["Title"] = "Edit Service Request";
+}
+
+<h2>Edit Service Request</h2>
+
+<form asp-action="Edit" method="post" class="form-card">
+    <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+    <input type="hidden" asp-for="RequestID" />
+
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" />
+        <span asp-validation-for="Title" class="field-validation"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" rows="4"></textarea>
+        <span asp-validation-for="Description" class="field-validation"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RequesterName"></label>
+        <input asp-for="RequesterName" />
+        <span asp-validation-for="RequesterName" class="field-validation"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Department"></label>
+        <select asp-for="Department">
+            <option>IT</option>
+            <option>Maintenance</option>
+            <option>HR</option>
+        </select>
+        <span asp-validation-for="Department" class="field-validation"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Priority"></label>
+        <select asp-for="Priority">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+        </select>
+        <span asp-validation-for="Priority" class="field-validation"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Status"></label>
+        <select asp-for="Status">
+            <option>New</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+            <option>On Hold</option>
+        </select>
+        <span asp-validation-for="Status" class="field-validation"></span>
+    </div>
+
+    <button type="submit" class="btn-primary">Save</button>
+    <a asp-action="Index" class="btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

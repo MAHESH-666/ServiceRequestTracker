@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ServiceRequestTracker.Models.ServiceRequest>
+
+@{
+    ViewData["Title"] = "Service Requests";
+    var statusFilter = ViewBag.StatusFilter as string;
+    var departmentFilter = ViewBag.DepartmentFilter as string;
+    var searchText = ViewBag.SearchText as string;
+}
+
+<h2>Service Requests</h2>
+
+<form method="get" class="filter-form">
+    <div class="filter-group">
+        <label>Status:</label>
+        <select name="statusFilter">
+            <option value="All">All</option>
+            <option value="New" selected="@(statusFilter == "New")">New</option>
+            <option value="In Progress" selected="@(statusFilter == "In Progress")">In Progress</option>
+            <option value="Completed" selected="@(statusFilter == "Completed")">Completed</option>
+            <option value="On Hold" selected="@(statusFilter == "On Hold")">On Hold</option>
+        </select>
+    </div>
+    <div class="filter-group">
+        <label>Department:</label>
+        <select name="departmentFilter">
+            <option value="All">All</option>
+            <option value="IT" selected="@(departmentFilter == "IT")">IT</option>
+            <option value="Maintenance" selected="@(departmentFilter == "Maintenance")">Maintenance</option>
+            <option value="HR" selected="@(departmentFilter == "HR")">HR</option>
+        </select>
+    </div>
+    <div class="filter-group">
+        <label>Search (Title/Description):</label>
+        <input type="text" name="searchText" value="@searchText" />
+    </div>
+    <button type="submit" class="btn-primary">Search</button>
+</form>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Request ID</th>
+            <th>Title</th>
+            <th>Requester</th>
+            <th>Department</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Created On</th>
+            <th>Last Updated On</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RequestID</td>
+                <td>@item.Title</td>
+                <td>@item.RequesterName</td>
+                <td>@item.Department</td>
+                <td>@item.Priority</td>
+                <td>@item.Status</td>
+                <td>@item.CreatedOn.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@item.LastUpdatedOn.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.RequestID" class="btn-secondary">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn-primary">Create New Request</a>

@@ -1,0 +1,36 @@
+﻿@{
+    var title = ViewData["Title"] ?? "Service Request Tracker";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@title - Service Request Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <img src="~/images/distologo.png" height="70px;" width="200px;"/>
+            <nav>
+                <a asp-controller="ServiceRequests" asp-action="Index">List</a>
+                <a asp-controller="ServiceRequests" asp-action="Create">Create New</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert success">@TempData["SuccessMessage"]</div>
+        }
+        @RenderBody()
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <span>&copy; @DateTime.Now.Year - disto pharmaceuticals pvt ltd</span>
+        </div>
+    </footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
