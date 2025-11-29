@@ -6,9 +6,7 @@
     var departmentFilter = ViewBag.DepartmentFilter as string;
     var searchText = ViewBag.SearchText as string;
 }
-
-<h2>Service Requests</h2>
-
+<h2 style="color:#29385c;">View & Manage Service Requests</h2>
 <form method="get" class="filter-form">
     <div class="filter-group">
         <label>Status:</label>
@@ -20,6 +18,7 @@
             <option value="On Hold" selected="@(statusFilter == "On Hold")">On Hold</option>
         </select>
     </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div class="filter-group">
         <label>Department:</label>
         <select name="departmentFilter">
@@ -28,14 +27,18 @@
             <option value="Maintenance" selected="@(departmentFilter == "Maintenance")">Maintenance</option>
             <option value="HR" selected="@(departmentFilter == "HR")">HR</option>
         </select>
+
     </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div class="filter-group">
         <label>Search (Title/Description):</label>
         <input type="text" name="searchText" value="@searchText" />
     </div>
     <button type="submit" class="btn-primary">Search</button>
+    <div class="mt-4 text-end">
+        <a href="/ServiceRequests/Index" class="btn btn-outline-secondary btn-lg ms-2 px-4">Reset</a>
+    </div>
 </form>
-
 <table class="data-table">
     <thead>
         <tr>
