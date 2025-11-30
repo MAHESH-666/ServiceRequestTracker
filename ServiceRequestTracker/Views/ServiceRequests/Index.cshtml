@@ -1,39 +1,13 @@
 ﻿@model IEnumerable<ServiceRequestTracker.Models.ServiceRequest>
 @Html.AntiForgeryToken()
-
+<link href="~/css/indexresponsive.css" rel="stylesheet" />
 @{
     ViewData["Title"] = "Service Requests";
     var statusFilter = ViewBag.StatusFilter as string;
     var departmentFilter = ViewBag.DepartmentFilter as string;
     var searchText = ViewBag.SearchText as string;
 }
-<style>
-    .data-table th{
-        background-color: #29385c !important;
-        color: white;
-    }
 
-    button.btn {
-        all: unset;
-        display: inline-block;
-        padding: .25rem .5rem;
-        border-radius: .25rem;
-        font-size: 0.875rem;
-        line-height: 1.5;
-        color: white;
-        cursor: pointer;
-        border: none;
-    }
-
-    .btn-danger {
-        background-color: #dc3545 !important;
-    }
-
-        .btn-danger:hover {
-            background-color: #bb2d3b !important;
-        }
-
-</style>
 <h2 style="color:#29385c;">View & Manage Service Requests</h2>
 <form method="get" class="filter-form">
     <div class="filter-group">
