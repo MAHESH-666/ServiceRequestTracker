@@ -8,6 +8,7 @@
     <title>@title - Service Request Tracker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -30,7 +31,7 @@
     </main>
     <footer class="footer">
         <div class="container">
-            <span>&copy; @DateTime.Now.Year - disto pharmaceuticals pvt ltd</span>
+            <span style="color:#29385c;">&copy; @DateTime.Now.Year - disto pharmaceuticals pvt ltd ®</span>
         </div>
     </footer>
     @if (TempData["SuccessMessage"] != null)
@@ -45,7 +46,17 @@
             });
         </script>
     }
-
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '@TempData["ErrorMessage"]',
+                confirmButtonColor: '#d9534f'
+            });
+        </script>
+    }
     @RenderSection("Scripts", required: false)
 </body>
 </html>

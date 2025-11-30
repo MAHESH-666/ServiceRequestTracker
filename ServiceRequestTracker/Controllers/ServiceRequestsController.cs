@@ -48,7 +48,6 @@ namespace ServiceRequestTracker.Controllers
             }
             catch (Exception ex)
             {
-                // Log ex here (Console/Logger)
                 ModelState.AddModelError(string.Empty, "An error occurred while saving the request. Please try again.");
                 return View(request);
             }
@@ -62,9 +61,6 @@ namespace ServiceRequestTracker.Controllers
 
             return View(req);
         }
-
-        // POST: ServiceRequests/Edit/5
-        // POST: ServiceRequests/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ServiceRequest request)
@@ -77,25 +73,15 @@ namespace ServiceRequestTracker.Controllers
 
             try
             {
-                // 1️⃣ Fetch existing record (important)
                 var existing = await _repository.GetByIdAsync(id);
                 if (existing == null)
                     return NotFound();
-
-                // 2️⃣ Update only editable fields
                 existing.Title = request.Title;
                 existing.Description = request.Description;
                 existing.Department = request.Department;
                 existing.Priority = request.Priority;
                 existing.Status = request.Status;
-
-                // 3️⃣ Keep original CreatedOn (do NOT overwrite)
-                // existing.CreatedOn stays unchanged
-
-                // 4️⃣ Update LastUpdatedOn
                 existing.LastUpdatedOn = DateTime.Now;
-
-                // 5️⃣ Save
                 await _repository.UpdateAsync(existing);
 
                 TempData["SuccessMessage"] = "Request updated successfully.";
@@ -107,6 +93,21 @@ namespace ServiceRequestTracker.Controllers
                 return View(request);
             }
         }
+        public async Task<IActionResult> Delete(int id)
+        {
+            var req = await _repository.GetByIdAsync(id);
+            if (req == null)
+                return NotFound();
+
+            return View(req);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _repository.DeleteAsync(id);
+            return Ok();
+        }
+
 
     }
 }

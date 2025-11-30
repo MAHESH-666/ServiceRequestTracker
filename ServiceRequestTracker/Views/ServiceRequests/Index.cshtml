@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ServiceRequestTracker.Models.ServiceRequest>
+@Html.AntiForgeryToken()
 
 @{
     ViewData["Title"] = "Service Requests";
@@ -6,6 +7,33 @@
     var departmentFilter = ViewBag.DepartmentFilter as string;
     var searchText = ViewBag.SearchText as string;
 }
+<style>
+    .data-table th{
+        background-color: #29385c !important;
+        color: white;
+    }
+
+    button.btn {
+        all: unset;
+        display: inline-block;
+        padding: .25rem .5rem;
+        border-radius: .25rem;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: white;
+        cursor: pointer;
+        border: none;
+    }
+
+    .btn-danger {
+        background-color: #dc3545 !important;
+    }
+
+        .btn-danger:hover {
+            background-color: #bb2d3b !important;
+        }
+
+</style>
 <h2 style="color:#29385c;">View & Manage Service Requests</h2>
 <form method="get" class="filter-form">
     <div class="filter-group">
@@ -38,10 +66,13 @@
     <div class="mt-4 text-end">
         <a href="/ServiceRequests/Index" class="btn btn-outline-secondary btn-lg ms-2 px-4">Reset</a>
     </div>
+    
+    <a style="margin-left:250px;" asp-action="Create" class="btn-primary">Create New Request</a>
+
 </form>
 <table class="data-table">
     <thead>
-        <tr>
+        <tr style="background-color: #29385c;">
             <th>Request ID</th>
             <th>Title</th>
             <th>Requester</th>
@@ -66,11 +97,58 @@
                 <td>@item.CreatedOn.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>@item.LastUpdatedOn.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.RequestID" class="btn-secondary">Edit</a>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@item.RequestID" class="btn btn-primary btn-sm">Edit</a>
+                        <button class="btn btn-danger btn-sm delete-btn" data-id="@item.RequestID">Delete</button>
+                    </div>
+
+
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<a asp-action="Create" class="btn-primary">Create New Request</a>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).on("click", ".delete-btn", function () {
+
+            var id = $(this).data("id");
+            var token = $('input[name="__RequestVerificationToken"]').val();
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This request will be permanently deleted.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        url: '/ServiceRequests/DeleteConfirmed',
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            __RequestVerificationToken: token
+                        },
+                        success: function () {
+                            Swal.fire("Deleted!", "The request has been deleted.", "success")
+                                .then(() => location.reload());
+                        },
+                        error: function (xhr) {
+                            console.log("Error:", xhr.responseText);
+                            Swal.fire("Error!", "Deletion failed.", "error");
+                        }
+                    });
+
+                }
+            });
+        });
+    </script>
+}

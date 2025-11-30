@@ -8,5 +8,7 @@ namespace ServiceRequestTracker.Repositories
         Task<ServiceRequest?> GetByIdAsync(int id);
         Task<int> CreateAsync(ServiceRequest request);
         Task UpdateAsync(ServiceRequest request);
+        Task DeleteAsync(int id);
+
     }
 }

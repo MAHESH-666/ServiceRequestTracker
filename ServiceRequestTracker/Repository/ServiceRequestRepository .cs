@@ -61,5 +61,15 @@ namespace ServiceRequestTracker.Repositories
             _context.ServiceRequests.Update(request);
             await _context.SaveChangesAsync();
         }
+        public async Task DeleteAsync(int id)
+        {
+            var req = await _context.ServiceRequests.FindAsync(id);
+            if (req != null)
+            {
+                _context.ServiceRequests.Remove(req);
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }
