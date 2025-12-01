@@ -73,4 +73,3 @@ DB First Approach used for generating the context and models.<br/>
 Bootstrap 5 used for styling.<br/>
 jQuery used for SweetAlert delete.<br/>
 PDF export only exports visible table.<br/>
-No authentication implemented (assumed not required for assignment).<br/>
