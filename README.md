@@ -18,7 +18,7 @@ USE ServiceTracker;
 GO
 
 CREATE TABLE ServiceRequests (
-    RequestID INT IDENTITY(1,1) PRIMARY KEY,
+    RequestID INT IDENTITY(1,1) PRIMARY KEY, <br/>
     Title NVARCHAR(200) NOT NULL,
     Description NVARCHAR(MAX) NOT NULL,
     RequesterName NVARCHAR(100) NOT NULL,
