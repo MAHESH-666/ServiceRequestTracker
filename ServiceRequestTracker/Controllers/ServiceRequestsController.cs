@@ -107,7 +107,17 @@ namespace ServiceRequestTracker.Controllers
             await _repository.DeleteAsync(id);
             return Ok();
         }
+        public async Task<IActionResult> ExportPdf()
+        {
+            var data = await _repository.GetAllAsync(null, null, null);
 
+            return new Rotativa.AspNetCore.ViewAsPdf("ExportPdf", data)
+            {
+                FileName = "ServiceRequests.pdf",
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape
+            };
+        }
 
     }
 }

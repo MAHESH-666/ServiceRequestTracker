@@ -100,7 +100,7 @@ button.btn {
 
     .filter-form button,
     .filter-form a {
-        width: 100%;
+      /*  width: 100%;*/
         text-align: center;
     }
 
@@ -131,5 +131,11 @@ button.btn {
     .filter-form input,
     .filter-form select {
         max-width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .filter-form button, .filter-form a {
+        /* width: 100%; */
+        text-align: center;
     }
 }

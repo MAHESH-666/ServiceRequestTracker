@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Rotativa.AspNetCore;
 using ServiceRequestTracker.Models;
 using ServiceRequestTracker.Repositories;
 
@@ -6,10 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddScoped<IServiceRequestRepository, ServiceRequestRepository>();
+
 builder.Services.AddDbContext<ServiceTrackerContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ServiceTracker")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ServiceDB")));
+
 var app = builder.Build();
+
+RotativaConfiguration.Setup(app.Environment.WebRootPath);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

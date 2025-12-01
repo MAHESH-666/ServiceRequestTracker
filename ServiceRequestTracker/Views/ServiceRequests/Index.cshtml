@@ -39,11 +39,14 @@
     <button type="submit" class="btn-primary">Search</button>
     <div class="mt-4 text-end">
         <a href="/ServiceRequests/Index" class="btn btn-outline-secondary btn-lg ms-2 px-4">Reset</a>
-    </div>
-    
-    <a style="margin-left:250px;" asp-action="Create" class="btn-primary">Create New Request</a>
-
+    </div> 
+    <a style="margin-left:145px;" asp-action="Create" class="btn-primary">Create New Request</a>
 </form>
+<div class="text-end mb-3" style="text-align:end;">
+    <a href="/ServiceRequests/ExportPdf" class="btn btn-dark">
+        Download List
+    </a>
+</div>
 <table class="data-table">
     <thead>
         <tr style="background-color: #29385c;">
