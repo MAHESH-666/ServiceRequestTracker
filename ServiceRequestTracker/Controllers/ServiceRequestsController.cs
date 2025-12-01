@@ -78,6 +78,7 @@ namespace ServiceRequestTracker.Controllers
                     return NotFound();
                 existing.Title = request.Title;
                 existing.Description = request.Description;
+                existing.RequesterName = request.RequesterName;
                 existing.Department = request.Department;
                 existing.Priority = request.Priority;
                 existing.Status = request.Status;
