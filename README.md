@@ -59,9 +59,8 @@ Open appsettings.json:<br/>
 
 Program.cs<br/>
 builder.Services.AddDbContext<ServiceTrackerContext>(options =><br/>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ServiceDB")));<br/>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ServiceDB")));<br/><br/>
 	
-	<br/><br/><br/>
 4. .NET / Framework Version Used<br/>
 .NET 8 (ASP.NET Core MVC)<br/>
 EF Core 8<br/>
